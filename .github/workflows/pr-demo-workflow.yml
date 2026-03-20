@@ -72,6 +72,46 @@ jobs:
     name: Job 2
     runs-on: ubuntu-latest
     steps:
+      - name: "Job:2 - Display Built-in Variables"
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## :gear: GitHub Actions Built-in Variables
+
+          ### Repository & Event Info
+          | Variable | Value |
+          |----------|-------|
+          | **GITHUB_REPOSITORY** | ${{ github.repository }} |
+          | **GITHUB_REPOSITORY_OWNER** | ${{ github.repository_owner }} |
+          | **GITHUB_EVENT_NAME** | ${{ github.event_name }} |
+          | **GITHUB_REF** | ${{ github.ref }} |
+          | **GITHUB_REF_NAME** | ${{ github.ref_name }} |
+          | **GITHUB_HEAD_REF** | ${{ github.head_ref }} |
+          | **GITHUB_BASE_REF** | ${{ github.base_ref }} |
+          | **GITHUB_SHA** | `${{ github.sha }}` |
+
+          ### Run Info
+          | Variable | Value |
+          |----------|-------|
+          | **GITHUB_RUN_ID** | ${{ github.run_id }} |
+          | **GITHUB_RUN_NUMBER** | ${{ github.run_number }} |
+          | **GITHUB_RUN_ATTEMPT** | ${{ github.run_attempt }} |
+          | **GITHUB_WORKFLOW** | ${{ github.workflow }} |
+          | **GITHUB_JOB** | ${{ github.job }} |
+          | **GITHUB_ACTOR** | @${{ github.actor }} |
+          | **GITHUB_TRIGGERING_ACTOR** | @${{ github.triggering_actor }} |
+
+          ### Server & Runner Info
+          | Variable | Value |
+          |----------|-------|
+          | **GITHUB_SERVER_URL** | ${{ github.server_url }} |
+          | **GITHUB_API_URL** | ${{ github.api_url }} |
+          | **RUNNER_NAME** | ${{ runner.name }} |
+          | **RUNNER_OS** | ${{ runner.os }} |
+          | **RUNNER_ARCH** | ${{ runner.arch }} |
+          | **RUNNER_TEMP** | ${{ runner.temp }} |
+          | **GITHUB_WORKSPACE** | ${{ github.workspace }} |
+          EOF
+
       - name: "Job:2, Action:1, Step:1"
         run: echo "It is Job:2, Action:1, Step:1 now ..."
 
