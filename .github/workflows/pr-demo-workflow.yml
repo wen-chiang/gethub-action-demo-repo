@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Display PR Information"
+        id: pr-info
         run: |
           echo "=============================="
           echo "   Pull Request Information"
@@ -32,12 +33,27 @@ jobs:
           echo "Mergeable:    ${{ github.event.pull_request.mergeable }}"
           echo "Draft:        ${{ github.event.pull_request.draft }}"
           echo "=============================="
+          # Pass custom variable to next steps via step output
+          echo "pr_summary=#${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
 
       - name: "Job:1, Action:1, Step:1"
-        run: echo "It is Job:1, Action:1, Step:1 now ..."
+        id: step1
+        run: |
+          echo "It is Job:1, Action:1, Step:1 now ..."
+          echo "PR #: ${{ github.event.pull_request.number }}"
+          echo "PR Summary (from prev step output): ${{ steps.pr-info.outputs.pr_summary }}"
+          # Method 1: Pass variable via step output (GITHUB_OUTPUT)
+          echo "step1_msg=Hello from Step1, PR #${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          # Method 2: Pass variable via environment (GITHUB_ENV) - available to ALL subsequent steps
+          echo "MY_VAR=This env var was set in Step1" >> $GITHUB_ENV
 
       - name: "Job:1, Action:1, Step:2"
-        run: echo "It is Job:1, Action:1, Step:2 now ..."
+        run: |
+          echo "It is Job:1, Action:1, Step:2 now ..."
+          echo "--- Reading from Step1 via step output ---"
+          echo "Step1 said: ${{ steps.step1.outputs.step1_msg }}"
+          echo "--- Reading from Step1 via GITHUB_ENV ---"
+          echo "Env var: $MY_VAR"
 
       - name: "Job:1, Action:2, Step:1"
         run: echo "It is Job:1, Action:2, Step:1 now ..."
