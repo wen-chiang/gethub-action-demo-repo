@@ -10,6 +10,29 @@ jobs:
     name: Job 1
     runs-on: ubuntu-latest
     steps:
+      - name: "Display PR Information"
+        run: |
+          echo "=============================="
+          echo "   Pull Request Information"
+          echo "=============================="
+          echo "PR Number:    #${{ github.event.pull_request.number }}"
+          echo "PR Title:     ${{ github.event.pull_request.title }}"
+          echo "PR State:     ${{ github.event.pull_request.state }}"
+          echo "PR Action:    ${{ github.event.action }}"
+          echo "PR URL:       ${{ github.event.pull_request.html_url }}"
+          echo "Author:       ${{ github.event.pull_request.user.login }}"
+          echo "Source Branch: ${{ github.event.pull_request.head.ref }}"
+          echo "Target Branch: ${{ github.event.pull_request.base.ref }}"
+          echo "Commits:      ${{ github.event.pull_request.commits }}"
+          echo "Changed Files: ${{ github.event.pull_request.changed_files }}"
+          echo "Additions:    +${{ github.event.pull_request.additions }}"
+          echo "Deletions:    -${{ github.event.pull_request.deletions }}"
+          echo "Created At:   ${{ github.event.pull_request.created_at }}"
+          echo "Updated At:   ${{ github.event.pull_request.updated_at }}"
+          echo "Mergeable:    ${{ github.event.pull_request.mergeable }}"
+          echo "Draft:        ${{ github.event.pull_request.draft }}"
+          echo "=============================="
+
       - name: "Job:1, Action:1, Step:1"
         run: echo "It is Job:1, Action:1, Step:1 now ..."
 
