@@ -1,10 +1,10 @@
-# Webhook + External Service vs GitHub Actions
+# GitHub Webhook + External Service vs GitHub Actions
 
 ## Overview
 
 Two main approaches to automate CI/CD and governance on GitHub repositories:
 1. **GitHub Actions** — workflow scripts stored in the repo (`.github/workflows/`)
-2. **Webhook + External Service** — an external server receives GitHub events and processes them
+2. **GitHub Webhook + External Service** — an external server receives GitHub events and processes them
 
 ---
 
